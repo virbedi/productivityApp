@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //Components
     @IBOutlet var table : UITableView!
     @IBOutlet var emptyTitle : UILabel!
-//    var models :  [Note] = []
+    var currentIndex = 0
     var models: Results<Note>!
     var notifToken: NotificationToken?
     
@@ -28,21 +28,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         table.dataSource = self
         title = "Notes"
         
-        
         let realm = RealmService.shared.realm
         models = realm.objects(Note.self)
+        
+        // Hiding the empty title if the model contains notes
         if models.count > 0 {
             self.emptyTitle.isHidden = true
             self.table.isHidden = false
         }
+        
         table.reloadData()
-        //Reloading table for new entry
+        // Reloading table for new entry
         notifToken = realm.observe{(notification, realm) in
             self.table.reloadData()
-            }
+        }
+        
+        // Catching any realm errors
         RealmService.shared.observeRealmErrors(in: self) { (error) in
             print(error ?? "That's strange, no error!")
-            
         }
     }
     
@@ -63,7 +66,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let today = Date().string(format: ("MM-dd-yyyy"))
             let newNote = Note(title: noteTitle, content: note, loc: nil, date: today)
             RealmService.shared.create(newNote)
-
+            
             self.table.reloadData()
             self.emptyTitle.isHidden = true
             self.table.isHidden = false
@@ -72,7 +75,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         navigationController?.pushViewController(vc, animated: true)
     }
-
+    
     //MARK: Note Table
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,39 +93,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        currentIndex = indexPath.row
+        let note = models[currentIndex]
         
-        let note = models[indexPath.row]
+        performSegue(withIdentifier: "showNote", sender: note)
         
-        //Presenting note (using storyboard)
-//        guard let vc = storyboard?.instantiateViewController(identifier: "note") as? NoteViewController else {return}
-//        vc.navigationItem.largeTitleDisplayMode = .never
-//
-//        vc.title = model.title
-//        vc.noteTitle = model.title
-//        vc.note = model.content
-//        navigationController?.pushViewController(vc, animated: true)
-        guard let vc = storyboard?.instantiateViewController(identifier: "new") as? CreateNoteViewController(title: models[indexPath.row].title,
-                                     content: models[indexPath.row].content) else {return}
-        vc.title = note.date ?? "MM/DD/YY"
-        vc.navigationItem.largeTitleDisplayMode = .never
-        vc.titleField.text = models[indexPath.row].title
-        vc.noteField.text = models[indexPath.row].content
-        vc.completion = { noteTitle,note in
-            // TODO: Change this
-//            let today = Date().string(format: ("MM-dd-yyyy"))
-//            let newNote = Note(title: noteTitle, content: note, loc: nil, date: today)
-//            RealmService.shared.create(newNote)
-            let dict: [String: Any?] = ["title": noteTitle,
-                                        "content": note]
-            RealmService.shared.update(self.models[indexPath.row], with: dict)
-            self.table.reloadData()
-            self.emptyTitle.isHidden = true
-            self.table.isHidden = false
-            self.navigationController?.popToRootViewController(animated: true)
-            
-        }
-        navigationController?.pushViewController(vc, animated: true)
-        
+
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -132,20 +108,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             table.reloadData()
         }
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showNote" {
+            let destinationVC = segue.destination as! CreateNoteViewController
+            destinationVC.note = sender as? Note
+            destinationVC.completion =  { noteTitle,note in
+                let dict: [String: Any?] = ["title": noteTitle,
+                                            "content": note]
+                RealmService.shared.update(self.models[self.currentIndex], with: dict)
+                self.table.reloadData()
+                self.emptyTitle.isHidden = true
+                self.table.isHidden = false
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+            
+        }
+    }
 
 }
-//class Note: NSObject {
-//    @objc dynamic var title: String
-//    @objc dynamic var content: String
-//
-//    init(title: String, content: String){
-//        self.title = title
-//        self.content = content
-//    }
-//
-//}
-//
-
 extension Date {
     func string(format: String) -> String {
         let formatter = DateFormatter()

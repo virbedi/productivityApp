@@ -12,18 +12,20 @@ class CreateNoteViewController: UIViewController {
 
     @IBOutlet var titleField: UITextField!
     @IBOutlet var noteField: UITextView!
+    
+    var note: Note?
     public var completion: ((String,String)->Void)?
     
-    init(title: String, content: String){
+    func setupUI() {
         
-        self.titleField.text = title
-        self.noteField.text = content
-        super.init(nibName: nil, bundle: nil)
+        titleField.text = note?.title
+        noteField.text = note?.content
+        
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupUI()
         titleField.becomeFirstResponder()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(didTapSave))
@@ -35,10 +37,6 @@ class CreateNoteViewController: UIViewController {
             completion?(text,noteField.text)
         }
     }
-    
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
 
 }
