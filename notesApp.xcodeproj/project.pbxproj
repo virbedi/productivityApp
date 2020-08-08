@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		12ABD966047D05B9C4A20F03 /* Pods_notesApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBE8DD7149F5730FBA5A334 /* Pods_notesApp.framework */; };
+		506AA36624DE39E40007F38B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506AA36524DE39E40007F38B /* Constants.swift */; };
+		50A4800524DE12A4009FE1C0 /* CellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A4800424DE12A4009FE1C0 /* CellTableViewCell.swift */; };
 		50AAABFF24CE75720061CA7F /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AAABFE24CE75720061CA7F /* ToDoListViewController.swift */; };
 		50AAAC0124CE786F0061CA7F /* TaskEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AAAC0024CE786F0061CA7F /* TaskEntryViewController.swift */; };
 		50AAAC0524CE79B90061CA7F /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50AAAC0424CE79B90061CA7F /* TaskViewController.swift */; };
@@ -26,6 +28,8 @@
 
 /* Begin PBXFileReference section */
 		1957EA3A1D0E57575BB1D376 /* Pods-notesApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-notesApp.debug.xcconfig"; path = "Target Support Files/Pods-notesApp/Pods-notesApp.debug.xcconfig"; sourceTree = "<group>"; };
+		506AA36524DE39E40007F38B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		50A4800424DE12A4009FE1C0 /* CellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTableViewCell.swift; sourceTree = "<group>"; };
 		50AAABFE24CE75720061CA7F /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
 		50AAAC0024CE786F0061CA7F /* TaskEntryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskEntryViewController.swift; sourceTree = "<group>"; };
 		50AAAC0424CE79B90061CA7F /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
@@ -75,6 +79,7 @@
 				50AEF26C24CD4DD40027246D /* CreateNoteViewController.swift */,
 				50AEF25A24CD4D360027246D /* ViewController.swift */,
 				50AAAC0924D2AB4D0061CA7F /* Note.swift */,
+				50A4800424DE12A4009FE1C0 /* CellTableViewCell.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -111,6 +116,7 @@
 				50AEF25624CD4D360027246D /* AppDelegate.swift */,
 				50AEF25824CD4D360027246D /* SceneDelegate.swift */,
 				50AAAC0B24DBBEA40061CA7F /* RealmService.swift */,
+				506AA36524DE39E40007F38B /* Constants.swift */,
 				50AAAC0624D13C9E0061CA7F /* Pomodoro */,
 				50AEF26424CD4D3D0027246D /* Info.plist */,
 				50AEF25C24CD4D360027246D /* Main.storyboard */,
@@ -150,7 +156,7 @@
 				50AEF24F24CD4D360027246D /* Sources */,
 				50AEF25024CD4D360027246D /* Frameworks */,
 				50AEF25124CD4D360027246D /* Resources */,
-				4DD73EE714723BDAD46947E2 /* [CP] Embed Pods Frameworks */,
+				9E0B275FF04F9C79AF2F0953 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -208,7 +214,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4DD73EE714723BDAD46947E2 /* [CP] Embed Pods Frameworks */ = {
+		9E0B275FF04F9C79AF2F0953 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -261,8 +267,10 @@
 				50AAAC0824D13CBC0061CA7F /* PomdoroViewController.swift in Sources */,
 				50AEF26D24CD4DD40027246D /* CreateNoteViewController.swift in Sources */,
 				50AAAC0A24D2AB4D0061CA7F /* Note.swift in Sources */,
+				506AA36624DE39E40007F38B /* Constants.swift in Sources */,
 				50AAABFF24CE75720061CA7F /* ToDoListViewController.swift in Sources */,
 				50AAAC0524CE79B90061CA7F /* TaskViewController.swift in Sources */,
+				50A4800524DE12A4009FE1C0 /* CellTableViewCell.swift in Sources */,
 				50AAAC0124CE786F0061CA7F /* TaskEntryViewController.swift in Sources */,
 				50AEF25924CD4D360027246D /* SceneDelegate.swift in Sources */,
 			);

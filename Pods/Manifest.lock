@@ -1,4 +1,5 @@
 PODS:
+  - constrain (1.0.3)
   - Realm (5.3.3):
     - Realm/Headers (= 5.3.3)
   - Realm/Headers (5.3.3)
@@ -6,17 +7,20 @@ PODS:
     - Realm (= 5.3.3)
 
 DEPENDENCIES:
+  - constrain
   - RealmSwift
 
 SPEC REPOS:
   trunk:
+    - constrain
     - Realm
     - RealmSwift
 
 SPEC CHECKSUMS:
+  constrain: fcf02b6400e62b9bd37e00894269c2c6621556ab
   Realm: 2d57ea355bf8ca2a0964d6bfb38d28d7ff2addf6
   RealmSwift: 0a709536ecea30eea1d3c514f6ade2ed078dee3c
 
-PODFILE CHECKSUM: 16d867f0de289ea56086c6234a5a912e4614cd16
+PODFILE CHECKSUM: 7e4aa6e6693b6f97de97eeb5d71a1cf0b8e004a7
 
 COCOAPODS: 1.9.3

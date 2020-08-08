@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 
+
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //Database
@@ -27,6 +28,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         table.delegate = self
         table.dataSource = self
         title = "Notes"
+        
+        table.register(CellTableViewCell.self, forCellReuseIdentifier: "customCell")
+        table.rowHeight = 75
         
         let realm = RealmService.shared.realm
         models = realm.objects(Note.self)
@@ -62,9 +66,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         vc.title = "New Note"
         vc.navigationItem.largeTitleDisplayMode = .never
         
-        vc.completion = { noteTitle,note in
+        vc.completion = { noteTitle, note, type in
             let today = Date().string(format: ("MM-dd-yyyy"))
-            let newNote = Note(title: noteTitle, content: note, loc: nil, date: today)
+            let newNote = Note(title: noteTitle, content: note, loc: nil, date: today, type: type)
             RealmService.shared.create(newNote)
             
             self.table.reloadData()
@@ -79,23 +83,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //MARK: Note Table
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return models.count
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = models[indexPath.row].title
-        cell.detailTextLabel?.text = models[indexPath.row].content
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CellTableViewCell
+        cell.note = models[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        currentIndex = indexPath.row
-        let note = models[currentIndex]
         
+        tableView.deselectRow(at: indexPath, animated: true)
+        let note = models[indexPath.row]
         performSegue(withIdentifier: "showNote", sender: note)
         
 
@@ -114,9 +114,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if segue.identifier == "showNote" {
             let destinationVC = segue.destination as! CreateNoteViewController
             destinationVC.note = sender as? Note
-            destinationVC.completion =  { noteTitle,note in
+            destinationVC.completion =  { noteTitle, note, type in
                 let dict: [String: Any?] = ["title": noteTitle,
-                                            "content": note]
+                                            "content": note,
+                                            "type": type]
                 RealmService.shared.update(self.models[self.currentIndex], with: dict)
                 self.table.reloadData()
                 self.emptyTitle.isHidden = true

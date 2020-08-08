@@ -86,6 +86,7 @@ class PomdoroViewController: UIViewController {
     
     @IBAction func switchTimer(_ sender: UISegmentedControl) {
         timer.invalidate()
+        actionButton.setTitle("Start", for: .normal)
         let index = sender.selectedSegmentIndex
         if index == 0{
             duration = 5 * 60

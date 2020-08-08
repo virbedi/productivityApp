@@ -12,14 +12,32 @@ class CreateNoteViewController: UIViewController {
 
     @IBOutlet var titleField: UITextField!
     @IBOutlet var noteField: UITextView!
+    @IBOutlet var typeSelector: UISegmentedControl!
     
     var note: Note?
-    public var completion: ((String,String)->Void)?
+    var noteType: String = "Note"
+    public var completion: ((String,String,String)->Void)?
     
     func setupUI() {
         
         titleField.text = note?.title
         noteField.text = note?.content
+        
+        switch note?.type {
+            case "Note":
+                typeSelector.selectedSegmentIndex = 0
+            case "List":
+                typeSelector.selectedSegmentIndex = 1
+            case "Idea":
+                typeSelector.selectedSegmentIndex = 2
+            case "Work":
+                typeSelector.selectedSegmentIndex = 3
+            case "Thought":
+                typeSelector.selectedSegmentIndex = 4
+            default:
+               typeSelector.selectedSegmentIndex = 0
+        }
+        
         
     }
 
@@ -34,9 +52,30 @@ class CreateNoteViewController: UIViewController {
     
     @objc func didTapSave(){
         if let text = titleField.text, !text.isEmpty, !noteField.text.isEmpty{
-            completion?(text,noteField.text)
+            completion?(text, noteField.text, noteType)
         }
     }
-
+    
+    @IBAction func selectType(_ sender: UISegmentedControl) {
+        
+        var type = "Note"
+        let index = sender.selectedSegmentIndex
+        switch index {
+            case 0:
+                type = "Note"
+            case 1:
+                type = "List"
+            case 2:
+                type = "Idea"
+            case 3:
+                type = "Work"
+            case 4:
+                type = "Thought"
+            default:
+                type = "Note"
+        }
+        
+        noteType = type
+    }
 
 }
