@@ -14,10 +14,10 @@ import RealmSwift
     dynamic var title: String = ""
     dynamic var content: String = ""
     dynamic var location: String? = nil
-    dynamic var date: String? = nil
+    dynamic var date: String = ""
     dynamic var type: String = ""
     
-    convenience init(title: String, content: String, loc: String?, date: String?, type: String = "Note"){
+    convenience init(title: String, content: String, loc: String?, date: String, type: String = "Note"){
         self.init()
         self.title = title
         self.content = content

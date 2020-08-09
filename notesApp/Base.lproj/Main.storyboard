@@ -15,6 +15,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SIM-mc-zho">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.32738703879999997" green="0.76362127589999995" blue="0.55323574190000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="g5a-rx-6ti" kind="relationship" relationship="rootViewController" id="occ-YD-oyd"/>
@@ -207,7 +208,7 @@
             </objects>
             <point key="canvasLocation" x="1796" y="378"/>
         </scene>
-        <!--Notes-->
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="notesApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -222,12 +223,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Y0D-og-ieB">
-                                <rect key="frame" x="0.0" y="140" width="414" height="616"/>
+                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Y0D-og-ieB" secondAttribute="bottom" id="2B0-g4-MX2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Y0D-og-ieB" secondAttribute="trailing" id="3aD-sy-Gj9"/>
                             <constraint firstItem="Y0D-og-ieB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6JX-oa-tBZ"/>
                             <constraint firstItem="Y0D-og-ieB" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="THf-66-YYz"/>
@@ -238,7 +240,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Notes" id="9bj-9m-FIm">
+                    <navigationItem key="navigationItem" id="9bj-9m-FIm">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="9hJ-ZO-lD7">
                             <connections>
                                 <action selector="addNewNote" destination="BYZ-38-t0r" id="9od-9f-3X8"/>
@@ -253,9 +255,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="510" y="-443"/>
+            <point key="canvasLocation" x="508.69565217391306" y="-443.30357142857139"/>
         </scene>
-        <!--Create Note View Controller-->
+        <!--Notes-->
         <scene sceneID="jWa-z3-NI2">
             <objects>
                 <viewController storyboardIdentifier="new" id="BVO-vI-Nfk" customClass="CreateNoteViewController" customModule="notesApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -303,7 +305,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="SRk-aK-Fhd"/>
                     </view>
-                    <navigationItem key="navigationItem" id="QUP-bT-HTM"/>
+                    <navigationItem key="navigationItem" title="Notes" id="QUP-bT-HTM"/>
                     <connections>
                         <outlet property="noteField" destination="ncb-3V-NW0" id="tBG-ME-FkN"/>
                         <outlet property="titleField" destination="OnR-vH-EYr" id="hrY-oF-Uqi"/>
@@ -342,6 +344,16 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="EgA-4M-tgY">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.21330285246026939" green="0.79148679237129005" blue="0.81310718911917101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="0.0"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="20"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="10"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -353,4 +365,5 @@
             <point key="canvasLocation" x="-564" y="-321"/>
         </scene>
     </scenes>
+    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

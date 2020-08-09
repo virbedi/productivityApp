@@ -27,11 +27,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Do any additional setup after loading the view.
         table.delegate = self
         table.dataSource = self
-        title = "Notes"
+       // title = "Notes"
+        navigationItem.title = "Notes"
         
         table.register(CellTableViewCell.self, forCellReuseIdentifier: "customCell")
         table.rowHeight = 75
-        
+        table.separatorStyle = .none
         let realm = RealmService.shared.realm
         models = realm.objects(Note.self)
         
@@ -67,8 +68,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         vc.navigationItem.largeTitleDisplayMode = .never
         
         vc.completion = { noteTitle, note, type in
-            let today = Date().string(format: ("MM-dd-yyyy"))
-            let newNote = Note(title: noteTitle, content: note, loc: nil, date: today, type: type)
+            let today = Date()
+            let formatter = DateFormatter()
+            formatter.timeStyle = .short
+            formatter.dateStyle = .medium
+            let dateTime = formatter.string(from: today)
+            let newNote = Note(title: noteTitle, content: note, loc: nil, date: dateTime, type: type)
             RealmService.shared.create(newNote)
             
             self.table.reloadData()
@@ -89,15 +94,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CellTableViewCell
         cell.note = models[indexPath.row]
+        cell.callLayout()
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
+        tableView.reloadData()
         let note = models[indexPath.row]
         performSegue(withIdentifier: "showNote", sender: note)
-        
+        tableView.reloadData()
 
     }
     
@@ -105,7 +112,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if editingStyle == .delete {
             let note = models[indexPath.row]
             RealmService.shared.delete(note)
-            table.reloadData()
+            tableView.reloadData()
         }
     }
     
@@ -113,6 +120,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showNote" {
             let destinationVC = segue.destination as! CreateNoteViewController
+            destinationVC.navigationItem.largeTitleDisplayMode = .never
             destinationVC.note = sender as? Note
             destinationVC.completion =  { noteTitle, note, type in
                 let dict: [String: Any?] = ["title": noteTitle,
@@ -128,11 +136,4 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
 
-}
-extension Date {
-    func string(format: String) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = format
-        return formatter.string(from: self)
-    }
 }

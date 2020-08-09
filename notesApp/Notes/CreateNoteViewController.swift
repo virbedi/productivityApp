@@ -15,7 +15,7 @@ class CreateNoteViewController: UIViewController {
     @IBOutlet var typeSelector: UISegmentedControl!
     
     var note: Note?
-    var noteType: String = "Note"
+    var noteType = ""
     public var completion: ((String,String,String)->Void)?
     
     func setupUI() {
