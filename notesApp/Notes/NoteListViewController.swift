@@ -10,29 +10,27 @@ import UIKit
 import RealmSwift
 
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    //Database
-    //let realm = try! Realm()
+class NoteListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //Components
     @IBOutlet var table : UITableView!
     @IBOutlet var emptyTitle : UILabel!
+   
     var currentIndex = 0
     var models: Results<Note>!
     var notifToken: NotificationToken?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
         table.delegate = self
         table.dataSource = self
-       // title = "Notes"
+      
         navigationItem.title = "Notes"
-        
         
         table.register(NoteTableViewCell.self, forCellReuseIdentifier: "customCell")
         table.rowHeight = 75
+        
         table.separatorStyle = .none
         let realm = RealmService.shared.realm
         models = realm.objects(Note.self)
@@ -43,16 +41,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.table.isHidden = false
         }
         
-        table.reloadData()
         // Reloading table for new entry
+        table.reloadData()
+        
+        // Catching any realm errors
         notifToken = realm.observe{(notification, realm) in
             self.table.reloadData()
         }
-        
-        // Catching any realm errors
         RealmService.shared.observeRealmErrors(in: self) { (error) in
             print(error ?? "That's strange, no error!")
         }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -64,7 +63,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     @IBAction func addNewNote(){
-        guard let vc = storyboard?.instantiateViewController(identifier: "new") as? CreateNoteViewController else {return}
+        guard let vc = storyboard?.instantiateViewController(identifier: "createNoteVC") as? CreateNoteViewController else {return}
         vc.title = "New Note"
         vc.navigationItem.largeTitleDisplayMode = .never
         
@@ -102,11 +101,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
-        tableView.reloadData()
-        let note = models[indexPath.row]
-        performSegue(withIdentifier: "showNote", sender: note)
-        tableView.reloadData()
-
+//        tableView.reloadData()
+//        let note = models[indexPath.row]
+//        performSegue(withIdentifier: "showNote", sender: note)
+//        tableView.reloadData()
+        let vc = (storyboard?.instantiateViewController(withIdentifier: "createNoteVC")) as! CreateNoteViewController
+        let index = indexPath.row
+        vc.note = models[indexPath.row]
+        
+        vc.completion =  { noteTitle, note, type in
+            let dict: [String: Any?] = ["title": noteTitle,
+                                        "content": note,
+                                        "type": type]
+            RealmService.shared.update(self.models[index], with: dict)
+            self.table.reloadData()
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -116,25 +127,4 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             tableView.reloadData()
         }
     }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showNote" {
-            let destinationVC = segue.destination as! CreateNoteViewController
-            destinationVC.navigationItem.largeTitleDisplayMode = .never
-            destinationVC.note = sender as? Note
-            destinationVC.completion =  { noteTitle, note, type in
-                let dict: [String: Any?] = ["title": noteTitle,
-                                            "content": note,
-                                            "type": type]
-                RealmService.shared.update(self.models[self.currentIndex], with: dict)
-                self.table.reloadData()
-                self.emptyTitle.isHidden = true
-                self.table.isHidden = false
-                self.navigationController?.popToRootViewController(animated: true)
-            }
-            
-        }
-    }
-
 }

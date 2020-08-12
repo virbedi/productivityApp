@@ -15,26 +15,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // Realm Schema Update
         let config = Realm.Configuration(
-            // Set the new schema version. This must be greater than the previously used
-            // version (if you've never set a schema version before, the version is 0).
-            schemaVersion: 3,
-         
-            // Set the block which will be called automatically when opening a Realm with
-            // a schema version lower than the one set above
-            migrationBlock: { migration, oldSchemaVersion in
-                //  oldSchemaVersion == 2
+            schemaVersion: 3, // Current Version
+            migrationBlock: { migration, oldSchemaVersion in // Migration Block: Set  schema updating changes here
                 if (oldSchemaVersion < 3) {
-                    // Nothing to do!
+                    //  oldSchemaVersion == 2
                     // Realm will automatically detect new properties and removed properties
                     // And will update the schema on disk automatically
                 }
             })
+        
+        // Set new config
         Realm.Configuration.defaultConfiguration = config
-         
-        // Tell Realm to use this new configuration object for the default Realm
-        Realm.Configuration.defaultConfiguration = config
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
+        // Create the singleton 
         _ = try! Realm()
         
         return true

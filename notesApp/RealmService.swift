@@ -28,6 +28,17 @@ class RealmService {
         }
     }
     
+    func update2<T: Object>(_ object: T){
+        do{
+            try realm.write{
+                realm.add(object, update: .all)
+            }
+            
+        } catch {
+            post(error)
+        }
+    }
+    
     func update<T: Object>(_ object: T, with dict: [String: Any?]){
         do{
             try realm.write{

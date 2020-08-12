@@ -119,10 +119,10 @@
             </objects>
             <point key="canvasLocation" x="217.39130434782609" y="1252.2321428571429"/>
         </scene>
-        <!--View Controller-->
+        <!--Note List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="notesApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="NoteListViewController" customModule="notesApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -174,29 +174,32 @@
         <!--Create Note View Controller-->
         <scene sceneID="jWa-z3-NI2">
             <objects>
-                <viewController storyboardIdentifier="new" id="BVO-vI-Nfk" customClass="CreateNoteViewController" customModule="notesApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="createNoteVC" id="BVO-vI-Nfk" customClass="CreateNoteViewController" customModule="notesApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mpj-bm-xCv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="M79-pL-TYD">
-                                <rect key="frame" x="7" y="76" width="414" height="896"/>
+                                <rect key="frame" x="7" y="76" width="407" height="896"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ncb-3V-NW0">
-                                        <rect key="frame" x="0.0" y="144" width="414" height="669"/>
+                                        <rect key="frame" x="0.0" y="162" width="407" height="651"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OnR-vH-EYr">
-                                        <rect key="frame" x="5" y="69" width="404" height="34"/>
+                                        <rect key="frame" x="5" y="69" width="397" height="52"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="52" id="qQ5-Uv-EqE"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4xx-da-B5A">
-                                        <rect key="frame" x="5" y="113" width="404" height="32"/>
+                                        <rect key="frame" x="5" y="131" width="397" height="32"/>
                                         <segments>
                                             <segment title="Note"/>
                                             <segment title="List"/>
@@ -211,16 +214,19 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstItem="ncb-3V-NW0" firstAttribute="bottom" secondItem="1VW-pj-fWQ" secondAttribute="bottom" id="5V8-Cz-5vj"/>
-                                    <constraint firstItem="ncb-3V-NW0" firstAttribute="leading" secondItem="1VW-pj-fWQ" secondAttribute="leading" id="E9J-fh-i8Y"/>
-                                    <constraint firstItem="1VW-pj-fWQ" firstAttribute="trailing" secondItem="4xx-da-B5A" secondAttribute="trailing" constant="5" id="EHO-vf-hS0"/>
-                                    <constraint firstItem="4xx-da-B5A" firstAttribute="leading" secondItem="1VW-pj-fWQ" secondAttribute="leading" constant="5" id="JXX-Kf-ZPn"/>
-                                    <constraint firstItem="1VW-pj-fWQ" firstAttribute="trailing" secondItem="ncb-3V-NW0" secondAttribute="trailing" id="PFV-6g-yqn"/>
-                                    <constraint firstItem="OnR-vH-EYr" firstAttribute="leading" secondItem="1VW-pj-fWQ" secondAttribute="leading" constant="5" id="b7k-n4-kkm"/>
-                                    <constraint firstItem="OnR-vH-EYr" firstAttribute="top" secondItem="1VW-pj-fWQ" secondAttribute="top" constant="5" id="dVT-hn-DRc"/>
-                                    <constraint firstItem="4xx-da-B5A" firstAttribute="top" secondItem="OnR-vH-EYr" secondAttribute="bottom" constant="10" id="oR0-2s-3Yr"/>
-                                    <constraint firstItem="1VW-pj-fWQ" firstAttribute="trailing" secondItem="OnR-vH-EYr" secondAttribute="trailing" constant="5" id="qmu-Bx-T5f"/>
-                                    <constraint firstItem="ncb-3V-NW0" firstAttribute="top" secondItem="4xx-da-B5A" secondAttribute="bottom" id="uLu-uI-I0U"/>
+                                    <constraint firstItem="4xx-da-B5A" firstAttribute="centerX" secondItem="ncb-3V-NW0" secondAttribute="centerX" id="34D-bs-ptx"/>
+                                    <constraint firstItem="OnR-vH-EYr" firstAttribute="trailing" secondItem="4xx-da-B5A" secondAttribute="trailing" id="38Y-0C-SdH"/>
+                                    <constraint firstItem="OnR-vH-EYr" firstAttribute="leading" secondItem="4xx-da-B5A" secondAttribute="leading" id="BXB-SG-Ifo"/>
+                                    <constraint firstItem="OnR-vH-EYr" firstAttribute="leading" secondItem="1VW-pj-fWQ" secondAttribute="leading" constant="5" id="DDI-yB-3RM"/>
+                                    <constraint firstItem="ncb-3V-NW0" firstAttribute="top" secondItem="4xx-da-B5A" secondAttribute="bottom" id="Gbf-31-ZLj"/>
+                                    <constraint firstItem="4xx-da-B5A" firstAttribute="top" secondItem="OnR-vH-EYr" secondAttribute="bottom" constant="10" id="IJI-Dm-0fx"/>
+                                    <constraint firstItem="OnR-vH-EYr" firstAttribute="centerX" secondItem="M79-pL-TYD" secondAttribute="centerX" id="Krd-Nv-ROR"/>
+                                    <constraint firstItem="ncb-3V-NW0" firstAttribute="bottom" secondItem="1VW-pj-fWQ" secondAttribute="bottom" id="T6X-9r-RuL"/>
+                                    <constraint firstItem="ncb-3V-NW0" firstAttribute="leading" secondItem="1VW-pj-fWQ" secondAttribute="leading" id="Ypc-2k-T4i"/>
+                                    <constraint firstItem="OnR-vH-EYr" firstAttribute="top" secondItem="1VW-pj-fWQ" secondAttribute="top" constant="5" id="pqc-qB-fu4"/>
+                                    <constraint firstItem="OnR-vH-EYr" firstAttribute="top" secondItem="1VW-pj-fWQ" secondAttribute="top" constant="5" id="s95-9D-gfj"/>
+                                    <constraint firstItem="1VW-pj-fWQ" firstAttribute="trailing" secondItem="OnR-vH-EYr" secondAttribute="trailing" constant="5" id="wWD-O5-lVA"/>
+                                    <constraint firstItem="OnR-vH-EYr" firstAttribute="leading" secondItem="1VW-pj-fWQ" secondAttribute="leading" constant="5" id="wrP-Ni-RFp"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="1VW-pj-fWQ"/>
                             </view>
@@ -237,7 +243,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UBC-iK-tbn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1271.0144927536232" y="-443.30357142857139"/>
+            <point key="canvasLocation" x="1421.7391304347827" y="-443.30357142857139"/>
         </scene>
         <!--Tab Bar-->
         <scene sceneID="ZOO-7h-jg7">
