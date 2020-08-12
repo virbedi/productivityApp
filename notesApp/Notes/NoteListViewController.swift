@@ -70,15 +70,15 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
         vc.completion = { noteTitle, note, type in
             let today = Date()
             let formatter = DateFormatter()
-            formatter.timeStyle = .short
-            formatter.dateStyle = .medium
+                formatter.timeStyle = .short
+                formatter.dateStyle = .medium
             let dateTime = formatter.string(from: today)
             let newNote = Note(title: noteTitle, content: note, loc: nil, date: dateTime, type: type)
             RealmService.shared.create(newNote)
-            // This reload data might be whats causing icons to refresh to default
-            self.table.reloadData()
+           
             self.emptyTitle.isHidden = true
             self.table.isHidden = false
+            
             self.navigationController?.popToRootViewController(animated: true)
             
         }
@@ -101,20 +101,14 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
-//        tableView.reloadData()
-//        let note = models[indexPath.row]
-//        performSegue(withIdentifier: "showNote", sender: note)
-//        tableView.reloadData()
+
         let vc = (storyboard?.instantiateViewController(withIdentifier: "createNoteVC")) as! CreateNoteViewController
         let index = indexPath.row
         vc.note = models[indexPath.row]
         
         vc.completion =  { noteTitle, note, type in
-            let dict: [String: Any?] = ["title": noteTitle,
-                                        "content": note,
-                                        "type": type]
+            let dict: [String: Any?] = ["title": noteTitle, "content": note, "type": type]
             RealmService.shared.update(self.models[index], with: dict)
-            self.table.reloadData()
             self.navigationController?.popToRootViewController(animated: true)
         }
         navigationController?.pushViewController(vc, animated: true)
@@ -124,7 +118,6 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
         if editingStyle == .delete {
             let note = models[indexPath.row]
             RealmService.shared.delete(note)
-            tableView.reloadData()
         }
     }
 }

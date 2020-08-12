@@ -22,6 +22,7 @@ class CreateNoteViewController: UIViewController {
         
         titleField.text = note?.title
         noteField.text = note?.content
+        noteType = note?.type ?? "Note"
         
         switch note?.type {
             case "Note":
