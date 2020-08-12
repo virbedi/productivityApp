@@ -8,4 +8,5 @@ target 'notesApp' do
   # Pods for notesApp
    pod 'RealmSwift'
    pod 'constrain'
+   pod 'BEMCheckBox'
 end

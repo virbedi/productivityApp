@@ -45,7 +45,7 @@ class CreateNoteViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         titleField.becomeFirstResponder()
-        
+        self.hideKeyboardWhenTappedAround()
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(didTapSave))
     }
     
@@ -78,4 +78,16 @@ class CreateNoteViewController: UIViewController {
         noteType = type
     }
 
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }

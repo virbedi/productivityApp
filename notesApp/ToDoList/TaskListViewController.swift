@@ -1,8 +1,8 @@
 //
-//  ToDoListViewController.swift
+//  TaskListViewController.swift
 //  notesApp
 //
-//  Created by Vir Bedi on 7/26/20.
+//  Created by Vir Bedi on 8/11/20.
 //  Copyright © 2020 Vir Bedi. All rights reserved.
 //
 
@@ -44,11 +44,6 @@ class ToDoListViewController: UIViewController {
     @IBAction func didTapAdd() {
        guard let vc = storyboard?.instantiateViewController(identifier: "TaskEntry") as? TaskEntryViewController else {return}
         vc.title = "New Task"
-        vc.updateTable = {
-            DispatchQueue.main.async{
-                self.updateTasks()
-            }
-        }
         navigationController?.pushViewController(vc,animated: true)
         
     }

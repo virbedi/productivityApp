@@ -10,33 +10,38 @@ import UIKit
 
 class TaskEntryViewController: UIViewController,UITextFieldDelegate {
 
-    @IBOutlet var taskLabel: UITextField!
+//    self.objective = objective
+//    self.details = details
+//    self.location = loc
+//    self.date = date
+//    self.type = type
+//    self.timerCount = timerCount
     
-    var updateTable: (() -> Void)?
+    @IBOutlet var objective: UITextField!
+    @IBOutlet var details: UITextField!
+    @IBOutlet var dateTime: UIDatePicker!
+    let reminderLabel = UILabel()
+    let reminderStack = UIStackView()
+    
+    public var completion: ((String, String, Date) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        taskLabel.delegate = self
+        
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title:"Save", style: .done, target: self, action: #selector(didTapSave))
 
         // Do any additional setup after loading the view.
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        didTapSave()
-        return true
-    }
-    
     @objc func didTapSave(){
-        guard let text = taskLabel.text, !text.isEmpty else {return}
         
-        let count = UserDefaults().value(forKey: "count") as? Int
-        let newCount = count ?? 0 + 1
-        UserDefaults().set(text, forKey: "task_\(newCount)")
+        if let objectiveText = objective.text {
+            let detailText = details.text ?? ""
+            let dateTimeValue = dateTime.date
+            completion?(objectiveText, detailText, dateTimeValue)
+        }
         
-        updateTable?()
-        
-        navigationController?.popViewController(animated: true)
+        //navigationController?.popViewController(animated: true)
     }
 }

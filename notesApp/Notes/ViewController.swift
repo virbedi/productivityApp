@@ -30,7 +30,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
        // title = "Notes"
         navigationItem.title = "Notes"
         
-        table.register(CellTableViewCell.self, forCellReuseIdentifier: "customCell")
+        
+        table.register(NoteTableViewCell.self, forCellReuseIdentifier: "customCell")
         table.rowHeight = 75
         table.separatorStyle = .none
         let realm = RealmService.shared.realm
@@ -75,7 +76,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let dateTime = formatter.string(from: today)
             let newNote = Note(title: noteTitle, content: note, loc: nil, date: dateTime, type: type)
             RealmService.shared.create(newNote)
-            
+            // This reload data might be whats causing icons to refresh to default
             self.table.reloadData()
             self.emptyTitle.isHidden = true
             self.table.isHidden = false
@@ -92,7 +93,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CellTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! NoteTableViewCell
         cell.note = models[indexPath.row]
         cell.callLayout()
         return cell

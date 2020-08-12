@@ -10,7 +10,7 @@ import UIKit
 import constrain
 
 
-class CellTableViewCell: UITableViewCell {
+class NoteTableViewCell: UITableViewCell {
     
     weak var note: Note?
     var typeImage = UIImageView()
