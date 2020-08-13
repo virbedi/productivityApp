@@ -17,7 +17,7 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet var emptyTitle : UILabel!
    
     var currentIndex = 0
-    var models: Results<Note>!
+    var models: Results<Note>!    // Reference for realm data, do not change
     var notes = [Note]()
     var notifToken: NotificationToken?
     
@@ -56,6 +56,10 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        updateNoteTable()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         //Stop Realm observer
@@ -63,14 +67,13 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func updateNoteTable() {
-        let count = models.count
-        
+        models = RealmService.shared.realm.objects(Note.self)
         notes.removeAll()
         
-        for i in 0..<count {
-            let note =  models[i]
-            notes.append(note)
+        for model in models.reversed() {
+            notes.append(model)
         }
+        
         table.reloadData()
     }
     
@@ -119,7 +122,7 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
         let vc = (storyboard?.instantiateViewController(withIdentifier: "createNoteVC")) as! CreateNoteViewController
         let index = indexPath.row
         vc.note = models[indexPath.row]
-        
+        vc.navigationItem.largeTitleDisplayMode = .never
         vc.completion =  { noteTitle, note, type in
             let dict: [String: Any?] = ["title": noteTitle, "content": note, "type": type]
             RealmService.shared.update(self.models[index], with: dict)
@@ -130,7 +133,7 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let note = models[indexPath.row]
+            let note = notes[indexPath.row]
             RealmService.shared.delete(note)
         }
     }
