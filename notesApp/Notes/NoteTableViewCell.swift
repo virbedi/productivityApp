@@ -63,6 +63,8 @@ class NoteTableViewCell: UITableViewCell {
             .height(20)
             .width(150)
         
+        callLayout()
+        
     }
     func callLayout(){
         layoutSubviews()

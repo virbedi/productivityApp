@@ -75,7 +75,6 @@ class TaskCell: UITableViewCell, BEMCheckBoxDelegate {
     
     func didTap(_ checkBox: BEMCheckBox) {
         if self.task != nil {
-            self.task?.timerCount = 0
             let strikeLabelText =  NSMutableAttributedString(string: task!.objective)
             strikeLabelText.addAttribute(NSAttributedString.Key.strikethroughStyle,
                                                  value: NSUnderlineStyle.single.rawValue,

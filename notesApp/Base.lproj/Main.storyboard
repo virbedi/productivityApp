@@ -296,7 +296,7 @@
         <!--Task List-->
         <scene sceneID="HtG-ZH-PHQ">
             <objects>
-                <viewController id="Ftc-g9-jUw" customClass="TaskListViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="taskList" id="Ftc-g9-jUw" customClass="TaskListVC" customModule="notesApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AOu-Co-s4X">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -316,17 +316,24 @@
                         <viewLayoutGuide key="safeArea" id="8qc-3Z-UVZ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Task List" id="t3o-WZ-Kln">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="q9J-hP-dIu"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="q9J-hP-dIu">
+                            <connections>
+                                <action selector="didTapAdd" destination="Ftc-g9-jUw" id="Nbl-N9-9gO"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="bcU-kk-v21" id="Lwf-sc-YNV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1GB-ij-Sfm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="187" y="378"/>
+            <point key="canvasLocation" x="204" y="378"/>
         </scene>
         <!--Task Entry View Controller-->
         <scene sceneID="TqZ-uZ-0Rf">
             <objects>
-                <viewController storyboardIdentifier="TaskEntryVC" id="X7S-TG-FfL" customClass="TaskEntryViewController" customModule="notesApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TaskEntry" id="X7S-TG-FfL" customClass="TaskEntryViewController" customModule="notesApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CrH-gY-OMQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

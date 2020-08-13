@@ -18,10 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Realm Schema Update
         let config = Realm.Configuration(
-            schemaVersion: 3, // Current Version
+            schemaVersion: 4, // Current Version
             migrationBlock: { migration, oldSchemaVersion in // Migration Block: Set  schema updating changes here
-                if (oldSchemaVersion < 3) {
-                    //  oldSchemaVersion == 2
+                if (oldSchemaVersion < 4) {
                     // Realm will automatically detect new properties and removed properties
                     // And will update the schema on disk automatically
                 }
@@ -30,7 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set new config
         Realm.Configuration.defaultConfiguration = config
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-        // Create the singleton 
+        
+        // Create the singleton
         _ = try! Realm()
         
         return true
