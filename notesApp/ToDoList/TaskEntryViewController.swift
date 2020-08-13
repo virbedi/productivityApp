@@ -20,15 +20,24 @@ class TaskEntryViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet var objective: UITextField!
     @IBOutlet var details: UITextField!
     @IBOutlet var dateTime: UIDatePicker!
+    weak var task: Task?
     let reminderLabel = UILabel()
     let reminderStack = UIStackView()
     
     public var completion: ((String, String, Date) -> Void)?
     
+    public func setupUI(for GivenTask: Task) {
+        task = GivenTask
+        if task != nil {
+            objective.text = task?.objective
+            details.text = task?.details
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        // Save button
         navigationItem.rightBarButtonItem = UIBarButtonItem(title:"Save", style: .done, target: self, action: #selector(didTapSave))
 
         // Do any additional setup after loading the view.

@@ -323,7 +323,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="bcU-kk-v21" id="Lwf-sc-YNV"/>
+                        <outlet property="table" destination="bcU-kk-v21" id="Lwf-sc-YNV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1GB-ij-Sfm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

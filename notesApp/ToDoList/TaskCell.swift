@@ -16,6 +16,21 @@ class TaskCell: UITableViewCell, BEMCheckBoxDelegate {
     var dateTime = UILabel()
     var doneIcon = BEMCheckBox()
     
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        doneIcon.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        accessoryView = doneIcon
+        doneIcon.delegate = self
+        
+    }
+    
+    public func setupCell(with task: Task){
+        title.text = task.objective
+        dateTime.text = task.date
+        doneIcon.on = task.done
+    }
+    
     override var frame: CGRect {
         get {
             return super.frame
@@ -32,15 +47,8 @@ class TaskCell: UITableViewCell, BEMCheckBoxDelegate {
         }
     }
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-        doneIcon.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        accessoryView = doneIcon
-        doneIcon.delegate = self
-        
-        
-    }
+    
+    
     override func layoutSubviews() {
 
         // Cell rounding and shadow
@@ -64,9 +72,6 @@ class TaskCell: UITableViewCell, BEMCheckBoxDelegate {
             .width(200)
             .leading(constant: 16)
         
-        if task != nil {
-            title.text = task?.objective
-        }
     }
     
     required init?(coder: NSCoder) {

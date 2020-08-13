@@ -7,49 +7,81 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TaskListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet var tableView: UITableView!
-        var tasks = [String]()
+    @IBOutlet var table: UITableView!
+    var tasks = [Task]()
+    var models: Results<Task>!
+    var notifToken: NotificationToken?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            self.title = "Tasks"
-            //Get saved tasks
-            tableView.delegate = self
-            tableView.dataSource = self
+        self.title = "Tasks"
+        
+        table.delegate = self
+        table.dataSource = self
+        
+        table.register(TaskCell.self, forCellReuseIdentifier: "TaskCell")
+        table.rowHeight = 75
+        
+        table.separatorStyle = .none
+        
+        let realm = RealmService.shared.realm
+        models = realm.objects(Task.self)
+        
+        // Hiding the empty title if the model contains notes
+        if models.count > 0 {
             
-            //Setup
-            if !UserDefaults().bool(forKey: "setup") {
-                UserDefaults().set(true,forKey: "setup")
-                UserDefaults().set(0, forKey: "count")
-            }
-            
-            updateTasks()
-            
-        }
-        func updateTasks() {
-            guard let count = UserDefaults().value(forKey: "count") as? Int else {return}
-            
-            tasks.removeAll()
-            for i in 0..<count {
-                if let task =  UserDefaults().value(forKey: "task_\(i+1)") as? String {
-                    tasks.append(task)
-                }
-            }
-            tableView.reloadData()
         }
         
-        @IBAction func didTapAdd() {
-           guard let vc = storyboard?.instantiateViewController(identifier: "TaskEntry") as? TaskEntryViewController else {return}
-            vc.title = "New Task"
-            navigationController?.pushViewController(vc,animated: true)
-            
+        // Reloading table for new entry
+        updateTasks()
+        
+        // Catching any realm errors
+        notifToken = realm.observe{(notification, realm) in
+            self.updateTasks()
         }
+        RealmService.shared.observeRealmErrors(in: self) { (error) in
+            print(error ?? "That's strange, no error!")
+        }
+        
+        
+    }
+    func updateTasks() {
+        let count = models.count
+        
+        tasks.removeAll()
+        
+        for i in 0..<count {
+            let task =  models[i]
+            tasks.append(task)
+        }
+        table.reloadData()
+    }
+    
+    @IBAction func didTapAdd() {
+        guard let vc = storyboard?.instantiateViewController(identifier: "TaskEntry") as? TaskEntryViewController else {return}
+        
+        vc.title = "New Task"
+        
+        vc.completion = { obj, det, date in
+            
+            let newTask = Task(objective: obj, details: det, date: "")
+            
+            RealmService.shared.create(newTask)
+        
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        navigationController?.pushViewController(vc,animated: true)
+        
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,12 +90,19 @@ class TaskListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = tasks[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskCell
+        cell.setupCell(with: tasks[indexPath.row])
         
         return cell
     }
-
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let task = models[indexPath.row]
+            RealmService.shared.delete(task)
+        }
+    }
+    
 }
 
 

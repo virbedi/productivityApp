@@ -18,6 +18,7 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
    
     var currentIndex = 0
     var models: Results<Note>!
+    var notes = [Note]()
     var notifToken: NotificationToken?
     
     override func viewDidLoad() {
@@ -32,6 +33,7 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
         table.rowHeight = 75
         
         table.separatorStyle = .none
+        
         let realm = RealmService.shared.realm
         models = realm.objects(Note.self)
         
@@ -42,11 +44,11 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         
         // Reloading table for new entry
-        table.reloadData()
+        updateNoteTable()
         
         // Catching any realm errors
         notifToken = realm.observe{(notification, realm) in
-            self.table.reloadData()
+            self.updateNoteTable()
         }
         RealmService.shared.observeRealmErrors(in: self) { (error) in
             print(error ?? "That's strange, no error!")
@@ -58,6 +60,18 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewWillDisappear(animated)
         //Stop Realm observer
         notifToken?.invalidate()
+    }
+    
+    func updateNoteTable() {
+        let count = models.count
+        
+        notes.removeAll()
+        
+        for i in 0..<count {
+            let note =  models[i]
+            notes.append(note)
+        }
+        table.reloadData()
     }
     
     
@@ -88,13 +102,13 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
     //MARK: Note Table
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return models.count
+        return notes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! NoteTableViewCell
-        cell.note = models[indexPath.row]
-        cell.callLayout()
+        let cellNote = notes[indexPath.row]
+        cell.setupCell(with: cellNote)
         return cell
     }
     

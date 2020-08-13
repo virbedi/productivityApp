@@ -24,16 +24,15 @@ import RealmSwift
     
     dynamic var objective: String = ""
     dynamic var details: String = ""
-    dynamic var location: String? = nil
     dynamic var date: String = ""
     dynamic var type: String = ""
+    dynamic var done: Bool = false
     dynamic var subTasks = List<SubTask>()
     
-    convenience init(objective: String, details: String, loc: String?, date: String, type: String = "Note") {
+    convenience init(objective: String, details: String, date: String, type: String = "") {
         self.init()
         self.objective = objective
         self.details = details
-        self.location = loc
         self.date = date
         self.type = type
     }
