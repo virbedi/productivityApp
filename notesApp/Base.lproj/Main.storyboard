@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2pz-e4-zAj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2pz-e4-zAj">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,7 +10,7 @@
         <!--To Do List-->
         <scene sceneID="h5H-Ad-VWw">
             <objects>
-                <navigationController id="uv5-eb-feY" sceneMemberID="viewController">
+                <navigationController id="uv5-eb-feY" customClass="TaskNavigationControleller" customModule="productiv" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="To Do List" id="OZP-90-qUZ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="SIM-mc-zho">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -51,7 +51,7 @@
         <!--Pomdoro View Controller-->
         <scene sceneID="hD4-jK-kY0">
             <objects>
-                <viewController id="Ib9-2C-p6P" customClass="PomdoroViewController" customModule="notesApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Ib9-2C-p6P" customClass="PomdoroViewController" customModule="productiv" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t9J-Jj-jXA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -85,7 +85,7 @@
                                     <segment title="25 min"/>
                                 </segments>
                                 <connections>
-                                    <action selector="switchTimer:" destination="Ib9-2C-p6P" eventType="valueChanged" id="dYk-eY-FoS"/>
+                                    <action selector="changeDuration:" destination="Ib9-2C-p6P" eventType="valueChanged" id="dYk-eY-FoS"/>
                                 </connections>
                             </segmentedControl>
                         </subviews>
@@ -122,7 +122,7 @@
         <!--Note List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="NoteListViewController" customModule="notesApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="NoteListViewController" customModule="productiv" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -134,7 +134,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Y0D-og-ieB">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <rect key="frame" x="0.0" y="141.5" width="414" height="671.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
@@ -145,7 +145,6 @@
                             <constraint firstItem="Y0D-og-ieB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6JX-oa-tBZ"/>
                             <constraint firstItem="Y0D-og-ieB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Dhy-4h-OcN"/>
                             <constraint firstItem="Y0D-og-ieB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="MR9-zm-DFx"/>
-                            <constraint firstItem="Y0D-og-ieB" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="28.5" id="THf-66-YYz"/>
                             <constraint firstItem="Y0D-og-ieB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="fZX-wf-u6k"/>
                             <constraint firstItem="sRm-6q-M5D" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ilN-Bb-koK"/>
                             <constraint firstItem="Y0D-og-ieB" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="lhi-Yh-bAV"/>
@@ -174,7 +173,7 @@
         <!--Create Note View Controller-->
         <scene sceneID="jWa-z3-NI2">
             <objects>
-                <viewController storyboardIdentifier="createNoteVC" id="BVO-vI-Nfk" customClass="CreateNoteViewController" customModule="notesApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="createNoteVC" id="BVO-vI-Nfk" customClass="CreateNoteViewController" customModule="productiv" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mpj-bm-xCv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -184,14 +183,14 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ncb-3V-NW0">
-                                        <rect key="frame" x="0.0" y="162" width="407" height="651"/>
+                                        <rect key="frame" x="0.0" y="163.5" width="407" height="649.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OnR-vH-EYr">
-                                        <rect key="frame" x="5" y="69" width="397" height="52"/>
+                                        <rect key="frame" x="5" y="70.5" width="397" height="52"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="52" id="qQ5-Uv-EqE"/>
                                         </constraints>
@@ -199,7 +198,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4xx-da-B5A">
-                                        <rect key="frame" x="5" y="131" width="397" height="32"/>
+                                        <rect key="frame" x="5" y="132.5" width="397" height="32"/>
                                         <segments>
                                             <segment title="Note"/>
                                             <segment title="List"/>
@@ -271,9 +270,9 @@
                     <tabBarItem key="tabBarItem" title="Notes" id="aa5-x4-sRO"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="EgA-4M-tgY">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="97.5"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.21330285246026939" green="0.79148679237129005" blue="0.81310718911917101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.13761174679999999" green="0.25078451629999998" blue="0.42372882369999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="0.0"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -296,7 +295,7 @@
         <!--Task List-->
         <scene sceneID="HtG-ZH-PHQ">
             <objects>
-                <viewController storyboardIdentifier="taskList" id="Ftc-g9-jUw" customClass="TaskListVC" customModule="notesApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="taskList" id="Ftc-g9-jUw" customClass="TaskListVC" customModule="productiv" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AOu-Co-s4X">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -333,7 +332,7 @@
         <!--Task Entry View Controller-->
         <scene sceneID="TqZ-uZ-0Rf">
             <objects>
-                <viewController storyboardIdentifier="TaskEntry" id="X7S-TG-FfL" customClass="TaskEntryViewController" customModule="notesApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TaskEntry" id="X7S-TG-FfL" customClass="TaskEntryViewController" customModule="productiv" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CrH-gY-OMQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

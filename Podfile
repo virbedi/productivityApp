@@ -9,4 +9,6 @@ target 'notesApp' do
    pod 'RealmSwift'
    pod 'constrain'
    pod 'BEMCheckBox'
+   pod "MBCircularProgressBar"
+   
 end

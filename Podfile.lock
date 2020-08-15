@@ -1,6 +1,7 @@
 PODS:
   - BEMCheckBox (1.4.1)
   - constrain (1.0.3)
+  - MBCircularProgressBar (0.3.5)
   - Realm (5.3.3):
     - Realm/Headers (= 5.3.3)
   - Realm/Headers (5.3.3)
@@ -10,21 +11,24 @@ PODS:
 DEPENDENCIES:
   - BEMCheckBox
   - constrain
+  - MBCircularProgressBar
   - RealmSwift
 
 SPEC REPOS:
   trunk:
     - BEMCheckBox
     - constrain
+    - MBCircularProgressBar
     - Realm
     - RealmSwift
 
 SPEC CHECKSUMS:
   BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
   constrain: fcf02b6400e62b9bd37e00894269c2c6621556ab
+  MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
   Realm: 2d57ea355bf8ca2a0964d6bfb38d28d7ff2addf6
   RealmSwift: 0a709536ecea30eea1d3c514f6ade2ed078dee3c
 
-PODFILE CHECKSUM: 665bc5703cdd8a42cd06eccecddc76e27514b67a
+PODFILE CHECKSUM: 181532334a0598276d7ef2402a4f986f2aa641f1
 
 COCOAPODS: 1.9.3
