@@ -9,6 +9,7 @@
 import UIKit
 import constrain
 import BEMCheckBox
+import RealmSwift
 
 class SubTaskCell: UITableViewCell, BEMCheckBoxDelegate {
     
@@ -29,26 +30,34 @@ class SubTaskCell: UITableViewCell, BEMCheckBoxDelegate {
         
     }
     
+    public func setupUI(for subtask: SubTask, at index: Int) {
+        self.subtask = subtask
+        indexView.text = String(index + 1)
+        titleView.text = subtask.objective
+        checkBox.setOn(subtask.done, animated: false)
+        
+    }
+    
+    
     override func layoutSubviews() {
         
         indexView.backgroundColor = .green
-        indexView.text = "1"
+        indexView.textAlignment = .center
         indexView.constrainIn(contentView)
             .fillHeight()
-            .width(15)
+            .width(45)
             .leading()
         
         seperator.backgroundColor = .black
         seperator.constrainIn(contentView)
             .width(1)
-            .fillHeight()
+            .fillHeight(3)
             .leading(to:indexView.trailingAnchor)
         
-        titleView.text = "Cell"
         titleView.constrainIn(contentView)
             .fillHeight()
             .width(200)
-            .leading(to:seperator.trailingAnchor)
+            .leading(to:seperator.trailingAnchor, constant: 5)
         
         
     }
@@ -57,7 +66,13 @@ class SubTaskCell: UITableViewCell, BEMCheckBoxDelegate {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        let dict: [String: Any?] = ["done" : selected]
+        
+        if self.subtask != nil {
+            RealmService.shared.update(self.subtask!, with: dict)
+        }
+        
+        
         // Configure the view for the selected state
     }
     

@@ -67,10 +67,10 @@ class TaskListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         vc.title = "New Task"
         
-        vc.completion = { obj, det, date in
+        vc.completion = { obj, det, date, subtasks in
             
             let newTask = Task(objective: obj, details: det, date: "")
-            
+            newTask.subTasks.append(objectsIn: subtasks)
             RealmService.shared.create(newTask)
         
             self.navigationController?.popToRootViewController(animated: true)
