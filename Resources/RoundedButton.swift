@@ -11,10 +11,10 @@ import UIKit
 
 public class RoundedButton: UIButton {
     
-    public init(title: String) {
+    public init(title: String = "") {
         super.init(frame: CGRect.zero)
         
-        setTitle(title, for: .normal)
+        if title != "" { setTitle(title, for: .normal) }
         contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         sizeToFit()
         layer.cornerRadius = frame.height / 2
@@ -25,7 +25,6 @@ public class RoundedButton: UIButton {
         
         layer.cornerRadius = frame.height / 2
     }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    
+    required init?(coder: NSCoder) {fatalError("init(coder:) has not been implemented")}
 }

@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import UserNotifications
+import constrain
 
 class PomdoroViewController: UIViewController {
 
     @IBOutlet var timeSelector: UISegmentedControl!
     @IBOutlet var timeLabel : UILabel!
-    @IBOutlet var cancelButton : UIButton!
-    @IBOutlet var actionButton : UIButton!
+    let cancelButton = RoundedButton(title: "Cancel")
+    let actionButton = RoundedButton(title: "Start")
     
     var currentTimer = 300 // 25 min * 60 sec
     var duration = 300
@@ -23,6 +25,9 @@ class PomdoroViewController: UIViewController {
     let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
     var timerIsOn = false
     
+
+    let notifCenter = UNUserNotificationCenter.current()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,42 +35,66 @@ class PomdoroViewController: UIViewController {
         let timeString = formatTime(currentTimer)
         timeLabel.text = timeString
         
+        actionButton.addTarget(self, action: #selector(didTapAction), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(didTapCancel), for: .touchUpInside)
         
-        let center = view.center
-        let circleTop = -CGFloat.pi * 0.5
+        actionButton.backgroundColor = .systemBlue
+        cancelButton.backgroundColor = .systemBlue
+        
+        let buttonStack = UIStackView(arrangedSubviews: [cancelButton,actionButton])
+        buttonStack.axis = .horizontal
+        buttonStack.spacing = 25
+        buttonStack.distribution = .fillEqually
+        
+        constrainSubview(buttonStack)
+            .height(50)
+            .fillWidth(10)
+            .top(to: timeLabel.bottomAnchor, constant: 100)
+            
+        
+//        let center = view.center
+//        let circleTop = -CGFloat.pi * 0.5
         // Creating a path and passing it to shape layer for progress circle
-        let circularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: circleTop, endAngle: 2*CGFloat.pi, clockwise: true)
+//        let circularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: circleTop, endAngle: 2*CGFloat.pi, clockwise: true)
+//
+//        shapeLayer.path = circularPath.cgPath
+//        shapeLayer.strokeColor = UIColor.red.cgColor
+//        shapeLayer.lineWidth = 10
+//        shapeLayer.strokeEnd = 0
+//        shapeLayer.lineCap = .round
+//        shapeLayer.fillColor = UIColor.clear.cgColor
+//
+//        trackLayer.path = circularPath.cgPath
+//        trackLayer.strokeColor = UIColor.lightGray.cgColor
+//        trackLayer.lineWidth = 10
+//        trackLayer.strokeEnd = 0
+//        trackLayer.fillColor = UIColor.clear.cgColor
+//
+//
+//        basicAnimation.toValue = 1
+//        basicAnimation.fillMode = .forwards
+//        basicAnimation.isRemovedOnCompletion = false
+//        shapeLayer.add(basicAnimation, forKey: "key" )
         
-        shapeLayer.path = circularPath.cgPath
-        shapeLayer.strokeColor = UIColor.red.cgColor
-        shapeLayer.lineWidth = 10
-        shapeLayer.strokeEnd = 0
-        shapeLayer.lineCap = .round
-        shapeLayer.fillColor = UIColor.clear.cgColor
+        // Notifications Permission
         
-        trackLayer.path = circularPath.cgPath
-        trackLayer.strokeColor = UIColor.lightGray.cgColor
-        trackLayer.lineWidth = 10
-        trackLayer.strokeEnd = 0
-        trackLayer.fillColor = UIColor.clear.cgColor
+        notifCenter.requestAuthorization(options: [.alert, .sound]) {
+            (granted, error) in
+        }
         
-        
-        basicAnimation.toValue = 1
-        basicAnimation.fillMode = .forwards
-        basicAnimation.isRemovedOnCompletion = false
-        shapeLayer.add(basicAnimation, forKey: "key" )
         
     }
     
-    @IBAction func didTapCancel(_ sender: Any) {
+    @objc func didTapCancel(_ sender: Any) {
         timer.invalidate()
         currentTimer = duration
         let timeString = formatTime(currentTimer)
         timeLabel.text = timeString
-        
+        notifCenter.removePendingNotificationRequests(withIdentifiers: ["pomodorNotif"])
         actionButton.setTitle("Start", for: .normal)
     }
-    @IBAction func didTapAction(_ sender: Any) {
+    
+    @objc func didTapAction(_ sender: Any) {
         timerIsOn.toggle()
         if timerIsOn {
             actionButton.setTitle("Pause", for: .normal)
@@ -86,6 +115,7 @@ class PomdoroViewController: UIViewController {
     
     @IBAction func changeDuration(_ sender: UISegmentedControl) {
         timer.invalidate()
+        notifCenter.removePendingNotificationRequests(withIdentifiers: ["pomodorNotif"])
         actionButton.setTitle("Start", for: .normal)
         let index = sender.selectedSegmentIndex
         if index == 0{
@@ -105,6 +135,10 @@ class PomdoroViewController: UIViewController {
     
     func toggleTimer(on: Bool ){
         if on {
+            
+            // Schedule notification
+            scheduleNotification(interval: currentTimer)
+            
             timer  = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { [weak self](_) in
                 // This is a completion handler and will fire every "timeInterval"
                 
@@ -117,7 +151,7 @@ class PomdoroViewController: UIViewController {
                 }
                 else if strongSelf.currentTimer == 0 {
                     // Timer hit 0 so do whatever you'd like to do here
-            
+                    
                     strongSelf.timeLabel.text = timeString
                     strongSelf.timer.invalidate()
                 }
@@ -130,5 +164,21 @@ class PomdoroViewController: UIViewController {
             timer.invalidate()
         }
         
+    }
+    
+    func scheduleNotification(interval: Int) {
+        let notifDate = Date().addingTimeInterval(TimeInterval(interval))
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: notifDate)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents , repeats: false)
+        
+        let notifContent = UNMutableNotificationContent()
+        notifContent.title = "Notif title"
+        notifContent.body = "Good job, your timer is up! Stay Productive!"
+        
+        let request =  UNNotificationRequest(identifier: "pomodorNotif", content: notifContent, trigger: trigger)
+        
+        notifCenter.add(request) { (error) in
+            print(error as Any)
+        }
     }
 }

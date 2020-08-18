@@ -24,7 +24,7 @@ class TaskEntryViewController: UIViewController,UITextFieldDelegate, UITableView
     
     public var completion: ((String, String, Date, [SubTask]) -> Void)?
     
-    public func setupUI(for GivenTask: Task) {
+    func setupUI(for GivenTask: Task) {
         task = GivenTask
         if task != nil {
             objective.text = task?.objective
@@ -44,10 +44,16 @@ class TaskEntryViewController: UIViewController,UITextFieldDelegate, UITableView
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(didTapSave))
-
-        // Add Subtask Text View and Button
+        // Task Description
+        objective.tintColor = .systemBlue
+        details.tintColor = .systemBlue
         
+        // Add Subtask Text View and Button
+        newSubtaskText.borderStyle = .roundedRect
+        newSubtaskText.placeholder = "New Subtask"
+        newSubtaskText.tintColor = .systemBlue
         newSubtaskText.rightView = addSubtaskButton
+        
         newSubtaskText.rightViewMode = .always
         addSubtaskButton.addTarget(self, action: #selector(didTapAddSubtask), for: .touchUpInside)
         addSubtaskButton.backgroundColor = .blue

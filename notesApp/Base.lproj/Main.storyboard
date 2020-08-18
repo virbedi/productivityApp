@@ -62,20 +62,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ctx-7H-YSe">
-                                <rect key="frame" x="77" y="433" width="48" height="30"/>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <action selector="didTapCancel:" destination="Ib9-2C-p6P" eventType="touchUpInside" id="ytg-dg-PGg"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLw-g8-OGN">
-                                <rect key="frame" x="306" y="433" width="34" height="30"/>
-                                <state key="normal" title="Start"/>
-                                <connections>
-                                    <action selector="didTapAction:" destination="Ib9-2C-p6P" eventType="touchUpInside" id="HwC-vF-Cx3"/>
-                                </connections>
-                            </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HVs-YP-LHm">
                                 <rect key="frame" x="100" y="155" width="214" height="31"/>
                                 <segments>
@@ -91,26 +77,17 @@
                         </subviews>
                         <color key="backgroundColor" red="0.3273870388308015" green="0.76362127590673579" blue="0.55323574185388935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ctx-7H-YSe" firstAttribute="centerY" secondItem="t9J-Jj-jXA" secondAttribute="centerY" id="5Nb-AW-uIf"/>
                             <constraint firstItem="HVs-YP-LHm" firstAttribute="top" secondItem="9BU-UZ-mhW" secondAttribute="top" constant="67" id="5We-V0-Jh3"/>
-                            <constraint firstItem="ctx-7H-YSe" firstAttribute="leading" secondItem="9BU-UZ-mhW" secondAttribute="leading" constant="77" id="6UC-og-DrH"/>
-                            <constraint firstItem="aLw-g8-OGN" firstAttribute="top" secondItem="9BU-UZ-mhW" secondAttribute="top" constant="345" id="HsU-mq-LjN"/>
-                            <constraint firstItem="aLw-g8-OGN" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ctx-7H-YSe" secondAttribute="trailing" constant="8" symbolic="YES" id="I3t-ea-LE7"/>
-                            <constraint firstItem="9BU-UZ-mhW" firstAttribute="trailing" secondItem="aLw-g8-OGN" secondAttribute="trailing" constant="74" id="cyz-2W-tK0"/>
                             <constraint firstItem="4HH-zG-953" firstAttribute="top" secondItem="HVs-YP-LHm" secondAttribute="bottom" constant="52" id="dhY-bD-rKg"/>
-                            <constraint firstItem="ctx-7H-YSe" firstAttribute="top" secondItem="9BU-UZ-mhW" secondAttribute="top" constant="345" id="e25-jI-zGB"/>
                             <constraint firstItem="4HH-zG-953" firstAttribute="centerX" secondItem="t9J-Jj-jXA" secondAttribute="centerX" id="gKB-fe-pup"/>
                             <constraint firstItem="4HH-zG-953" firstAttribute="top" secondItem="t9J-Jj-jXA" secondAttribute="topMargin" constant="149" id="hLI-jW-J1i"/>
                             <constraint firstItem="HVs-YP-LHm" firstAttribute="leading" secondItem="9BU-UZ-mhW" secondAttribute="leading" constant="100" id="uUR-fb-EiH"/>
                             <constraint firstItem="9BU-UZ-mhW" firstAttribute="trailing" secondItem="HVs-YP-LHm" secondAttribute="trailing" constant="100" id="wfg-4d-iOY"/>
-                            <constraint firstItem="aLw-g8-OGN" firstAttribute="centerY" secondItem="t9J-Jj-jXA" secondAttribute="centerY" id="zc2-Cw-gev"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9BU-UZ-mhW"/>
                     </view>
                     <navigationItem key="navigationItem" id="HCc-fl-6FG"/>
                     <connections>
-                        <outlet property="actionButton" destination="aLw-g8-OGN" id="eLC-Xv-DGt"/>
-                        <outlet property="cancelButton" destination="ctx-7H-YSe" id="Y9q-sZ-bfH"/>
                         <outlet property="timeLabel" destination="4HH-zG-953" id="qI6-qg-LFs"/>
                         <outlet property="timeSelector" destination="HVs-YP-LHm" id="gf7-WT-RS6"/>
                     </connections>
@@ -266,7 +243,7 @@
         <!--Notes-->
         <scene sceneID="7ED-x6-jgo">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LQM-9Y-cb9" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LQM-9Y-cb9" customClass="NoteNavigationControleller" customModule="productiv" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Notes" id="aa5-x4-sRO"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="EgA-4M-tgY">

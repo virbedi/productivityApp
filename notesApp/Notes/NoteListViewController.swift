@@ -128,7 +128,7 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
             RealmService.shared.update(self.models[index], with: dict)
             self.navigationController?.popToRootViewController(animated: true)
         }
-        navigationController?.pushViewController(vc, animated: true)
+           
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

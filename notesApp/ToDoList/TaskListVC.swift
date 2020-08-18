@@ -82,6 +82,21 @@ class TaskListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        guard let vc = storyboard?.instantiateViewController(identifier: "TaskEntry") as? TaskEntryViewController else {return}
+        
+        vc.setupUI(for: tasks[indexPath.row])
+        
+        // Updating subtask on completion
+        vc.completion = { obj, det, date, subtasks in
+            let dict: [String: Any?] = ["objective": obj,
+                                        "details": det,
+                                        "date": "",
+                                        "subTasks": subtasks]
+            RealmService.shared.update(self.tasks[indexPath.row], with: dict)
+        }
+        
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
