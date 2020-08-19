@@ -10,10 +10,13 @@ import UIKit
 
 class TaskEntryViewController: UIViewController,UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet var objective: UITextField!
-    @IBOutlet var details: UITextField!
-    @IBOutlet var dateTime: UIDatePicker!
-    
+//    @IBOutlet var objective: UITextField!
+//    @IBOutlet var details: UITextField!
+//    @IBOutlet var dateTime: UIDatePicker!
+
+    let objective = UITextField()
+    let details = UITextField()
+    let dateTime = UIDatePicker()
     weak var task: Task?
     var subtasks = [SubTask]()
     
@@ -23,6 +26,14 @@ class TaskEntryViewController: UIViewController,UITextFieldDelegate, UITableView
     let addSubtaskButton = RoundedButton(title: "Add")
     
     public var completion: ((String, String, Date, [SubTask]) -> Void)?
+    
+    init (){
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func setupUI(for GivenTask: Task) {
         task = GivenTask
@@ -36,6 +47,7 @@ class TaskEntryViewController: UIViewController,UITextFieldDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
         dateTime.isHidden = true
         subtaskTable.reloadData()
         subtaskTable.rowHeight = 50
@@ -46,8 +58,12 @@ class TaskEntryViewController: UIViewController,UITextFieldDelegate, UITableView
                                                             action: #selector(didTapSave))
         // Task Description
         objective.tintColor = .systemBlue
-        details.tintColor = .systemBlue
+        objective.placeholder = "Task"
+        objective.borderStyle = .roundedRect
         
+        details.tintColor = .systemBlue
+        details.placeholder = "Details about the task"
+        details.borderStyle = .roundedRect
         // Add Subtask Text View and Button
         newSubtaskText.borderStyle = .roundedRect
         newSubtaskText.placeholder = "New Subtask"
@@ -63,18 +79,24 @@ class TaskEntryViewController: UIViewController,UITextFieldDelegate, UITableView
         subtaskTable.delegate = self
         subtaskTable.dataSource = self
         
+        view.constrainSubview(objective)
+            .fillWidth()
+            .height(35)
+            .top(to: view.topAnchorSafe, constant: 5)
+        view.constrainSubview(details)
+        .fillWidth()
+        .height(35)
+        .top(to: objective.bottomAnchor, constant: 5)
         
-        
-        constrainSubview(newSubtaskText)
+        view.constrainSubview(newSubtaskText)
             .fillWidth(5)
             .height(50)
             .top(to: details.bottomAnchor, constant: 5)
         
-        constrainSubview(subtaskTable)
+        view.constrainSubview(subtaskTable)
         .fillWidth()
         .height(600)
             .top(to: newSubtaskText.bottomAnchor, constant: 5)
-        
         
         
     }
@@ -98,7 +120,7 @@ class TaskEntryViewController: UIViewController,UITextFieldDelegate, UITableView
     }
     
     @objc func didTapAddSubtask(){
-        if newSubtaskText.text != nil {
+        if newSubtaskText.text != "" {
             let newTask = SubTask((newSubtaskText.text!), done: false)
             subtasks.append(newTask)
             subtaskTable.reloadData()
@@ -111,6 +133,7 @@ class TaskEntryViewController: UIViewController,UITextFieldDelegate, UITableView
         if let objectiveText = objective.text {
             let detailText = details.text ?? ""
             let dateTimeValue = dateTime.date
+            
             completion?(objectiveText, detailText, dateTimeValue, subtasks)
         }
         

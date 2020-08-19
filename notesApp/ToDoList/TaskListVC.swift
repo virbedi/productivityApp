@@ -63,8 +63,8 @@ class TaskListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     @IBAction func didTapAdd() {
-        guard let vc = storyboard?.instantiateViewController(identifier: "TaskEntry") as? TaskEntryViewController else {return}
-        
+//        guard let vc = storyboard?.instantiateViewController(identifier: "TaskEntry") as? TaskEntryViewController else {return}
+        let vc = TaskEntryViewController() 
         vc.title = "New Task"
         
         vc.completion = { obj, det, date, subtasks in
@@ -82,7 +82,8 @@ class TaskListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let vc = storyboard?.instantiateViewController(identifier: "TaskEntry") as? TaskEntryViewController else {return}
+        
+        let vc = TaskEntryViewController() 
         
         vc.setupUI(for: tasks[indexPath.row])
         
@@ -93,6 +94,7 @@ class TaskListVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
                                         "date": "",
                                         "subTasks": subtasks]
             RealmService.shared.update(self.tasks[indexPath.row], with: dict)
+            self.navigationController?.popToRootViewController(animated: true)
         }
         
         navigationController?.pushViewController(vc, animated: true)
