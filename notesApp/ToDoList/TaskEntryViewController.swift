@@ -136,7 +136,8 @@ class TaskEntryViewController: UIViewController,UITextFieldDelegate, UITableView
     
     @objc func didTapSave(){
         
-        if let objectiveText = objective.text {
+        if  objective.text != "" {
+            let objectiveText = objective.text ?? "Error"
             let detailText = details.text ?? ""
             let dateTimeValue = dateTime.date
             
