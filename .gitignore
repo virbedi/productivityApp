@@ -40,5 +40,10 @@ DerivedData/
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 notesApp.xcodeproj/project.pbxproj
+notesApp.xcworkspace/xcuserdata/vir.xcuserdatad/xcdebugger/
+
+# If there are issues with project.pbxproj
+# $ cd ~/Projects/MyProjectFolder/
+# $ swift package generate-xcodeproj
 
 # End of https://www.toptal.com/developers/gitignore/api/xcode

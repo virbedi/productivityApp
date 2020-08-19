@@ -41,6 +41,17 @@ class SubTaskCell: UITableViewCell, BEMCheckBoxDelegate {
     
     override func layoutSubviews() {
         
+        // Cell rounding and shadow
+        backgroundColor = .clear
+        self.layer.masksToBounds = true
+        self.layer.shadowOpacity = 0.25
+        self.layer.shadowRadius = 3
+        self.layer.shadowOffset = CGSize(width: 0, height: 2)
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.backgroundColor = .white
+        self.layer.cornerRadius = 8
+        
+        
         indexView.backgroundColor = .green
         indexView.textAlignment = .center
         indexView.constrainIn(contentView)
@@ -60,6 +71,22 @@ class SubTaskCell: UITableViewCell, BEMCheckBoxDelegate {
             .leading(to:seperator.trailingAnchor, constant: 5)
         
         
+    }
+    
+    override var frame: CGRect {
+        get {
+            return super.frame
+        }
+        set {
+            let xInset: CGFloat = 10
+            let yInset: CGFloat = 5
+            var frame = newValue
+            frame.origin.x += xInset
+            frame.origin.y += yInset
+            frame.size.width -= 2 * xInset
+            frame.size.height -= 2 * yInset
+            super.frame = frame
+        }
     }
     
     

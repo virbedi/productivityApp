@@ -62,7 +62,7 @@ class TaskEntryViewController: UIViewController,UITextFieldDelegate, UITableView
         objective.borderStyle = .roundedRect
         
         details.tintColor = .systemBlue
-        details.placeholder = "Details about the task"
+        details.placeholder = "Any details about the task"
         details.borderStyle = .roundedRect
         // Add Subtask Text View and Button
         newSubtaskText.borderStyle = .roundedRect
@@ -78,14 +78,16 @@ class TaskEntryViewController: UIViewController,UITextFieldDelegate, UITableView
         subtaskTable.register(SubTaskCell.self, forCellReuseIdentifier: "SubTaskCell")
         subtaskTable.delegate = self
         subtaskTable.dataSource = self
+        subtaskTable.rowHeight = 50
+        subtaskTable.separatorStyle = .none
         
         view.constrainSubview(objective)
-            .fillWidth()
-            .height(35)
+            .fillWidth(5)
+            .height(40)
             .top(to: view.topAnchorSafe, constant: 5)
         view.constrainSubview(details)
-        .fillWidth()
-        .height(35)
+        .fillWidth(5)
+        .height(68)
         .top(to: objective.bottomAnchor, constant: 5)
         
         view.constrainSubview(newSubtaskText)
@@ -117,6 +119,10 @@ class TaskEntryViewController: UIViewController,UITextFieldDelegate, UITableView
             subtasks.remove(at: indexPath.row)
             subtaskTable.reloadData()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     @objc func didTapAddSubtask(){
