@@ -25,10 +25,11 @@ class TaskCell: UITableViewCell, BEMCheckBoxDelegate {
         
     }
     
-    public func setupCell(with task: Task){
+    public func setupCell(with task: Task) {
+        self.task = task
         title.text = task.objective
         dateTime.text = task.date
-        doneIcon.on = task.done
+        doneIcon.setOn(task.done, animated: false)
     }
     
     override var frame: CGRect {
@@ -61,8 +62,6 @@ class TaskCell: UITableViewCell, BEMCheckBoxDelegate {
         self.backgroundColor = .white
         self.layer.cornerRadius = 8
         
-        // Checkmark layout
-        
         
         // Title layout
         title.font = UIFont.boldSystemFont(ofSize: 16)
@@ -79,13 +78,31 @@ class TaskCell: UITableViewCell, BEMCheckBoxDelegate {
     }
     
     func didTap(_ checkBox: BEMCheckBox) {
+        
         if self.task != nil {
-            let strikeLabelText =  NSMutableAttributedString(string: task!.objective)
-            strikeLabelText.addAttribute(NSAttributedString.Key.strikethroughStyle,
-                                                 value: NSUnderlineStyle.single.rawValue,
-                                                     range: NSMakeRange(0, strikeLabelText.length))
-            title.attributedText = strikeLabelText
             
+            let oldValue = self.task?.done ?? false
+            
+            // Update new value in database
+            let dict: [String: Any?] = ["done" : !oldValue]
+            RealmService.shared.update(self.task!, with: dict)
+            
+        }
+    }
+    
+    func updateTitle(value: Bool) {
+        // Work in progress
+        if value {
+            
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: task!.objective)
+            
+            attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 0.5, range: NSMakeRange(0, attributeString.length))
+            
+            title.attributedText = attributeString
+        }
+        else {
+            title.attributedText = NSMutableAttributedString(string: "")
+            title.text = task?.objective
         }
     }
     

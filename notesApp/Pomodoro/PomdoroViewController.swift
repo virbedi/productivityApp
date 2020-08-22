@@ -52,30 +52,6 @@ class PomdoroViewController: UIViewController {
             .top(to: timeLabel.bottomAnchor, constant: 100)
             
         
-//        let center = view.center
-//        let circleTop = -CGFloat.pi * 0.5
-        // Creating a path and passing it to shape layer for progress circle
-//        let circularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: circleTop, endAngle: 2*CGFloat.pi, clockwise: true)
-//
-//        shapeLayer.path = circularPath.cgPath
-//        shapeLayer.strokeColor = UIColor.red.cgColor
-//        shapeLayer.lineWidth = 10
-//        shapeLayer.strokeEnd = 0
-//        shapeLayer.lineCap = .round
-//        shapeLayer.fillColor = UIColor.clear.cgColor
-//
-//        trackLayer.path = circularPath.cgPath
-//        trackLayer.strokeColor = UIColor.lightGray.cgColor
-//        trackLayer.lineWidth = 10
-//        trackLayer.strokeEnd = 0
-//        trackLayer.fillColor = UIColor.clear.cgColor
-//
-//
-//        basicAnimation.toValue = 1
-//        basicAnimation.fillMode = .forwards
-//        basicAnimation.isRemovedOnCompletion = false
-//        shapeLayer.add(basicAnimation, forKey: "key" )
-        
         // Notifications Permission
         
         notifCenter.requestAuthorization(options: [.alert, .sound]) {
@@ -134,6 +110,8 @@ class PomdoroViewController: UIViewController {
     }
     
     func toggleTimer(on: Bool ){
+        
+        circularAnimation(duration: 25)
         if on {
             
             // Schedule notification
@@ -180,5 +158,40 @@ class PomdoroViewController: UIViewController {
         notifCenter.add(request) { (error) in
             print(error as Any)
         }
+    }
+    
+    func circularAnimation(duration: TimeInterval) {
+        
+        let frame = self.view.frame
+        let circleTop = -CGFloat.pi * 0.5
+        
+        // Creating a path and passing it to shape layer for progress circle
+        let circularPath = UIBezierPath(arcCenter: CGPoint(x: frame.size.width / 2.0, y: frame.size.height / 2.0), radius: 80, startAngle: -.pi / 2, endAngle: 3 * .pi / 2, clockwise: true)
+
+        shapeLayer.path = circularPath.cgPath
+        shapeLayer.strokeColor = UIColor.red.cgColor
+        shapeLayer.lineWidth = 10
+        shapeLayer.strokeEnd = 0
+        shapeLayer.lineCap = .round
+        shapeLayer.fillColor = UIColor.clear.cgColor
+
+        trackLayer.path = circularPath.cgPath
+        trackLayer.strokeColor = UIColor.lightGray.cgColor
+        trackLayer.lineWidth = 10
+        trackLayer.strokeEnd = 0
+        trackLayer.fillColor = UIColor.clear.cgColor
+
+
+        basicAnimation.toValue = 1
+        basicAnimation.fillMode = .forwards
+        basicAnimation.isRemovedOnCompletion = false
+        shapeLayer.add(basicAnimation, forKey: "key" )
+        
+        let circularProgressAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        circularProgressAnimation.duration = duration
+        circularProgressAnimation.toValue = 1.0
+        circularProgressAnimation.fillMode = .forwards
+        circularProgressAnimation.isRemovedOnCompletion = false
+        shapeLayer.add(circularProgressAnimation, forKey: "progressAnim")
     }
 }

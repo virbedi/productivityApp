@@ -23,7 +23,7 @@ class SubTaskCell: UITableViewCell, BEMCheckBoxDelegate {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        
         checkBox.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
         accessoryView = checkBox
         checkBox.delegate = self
@@ -89,18 +89,13 @@ class SubTaskCell: UITableViewCell, BEMCheckBoxDelegate {
         }
     }
     
-    
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        let dict: [String: Any?] = ["done" : selected]
+    func didTap(_ checkBox: BEMCheckBox) {
         
-        if self.subtask != nil {
-            RealmService.shared.update(self.subtask!, with: dict)
-        }
+        let oldValue = self.subtask?.done ?? false
         
-        
-        // Configure the view for the selected state
+        // Update new value in database
+        let dict: [String: Any?] = ["done" : !oldValue]
+        RealmService.shared.update(self.subtask!, with: dict)
     }
     
     
@@ -109,3 +104,6 @@ class SubTaskCell: UITableViewCell, BEMCheckBoxDelegate {
     override func awakeFromNib() { super.awakeFromNib() }
 
 }
+
+
+// 
