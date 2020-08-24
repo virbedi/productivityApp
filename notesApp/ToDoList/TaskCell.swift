@@ -15,6 +15,8 @@ class TaskCell: UITableViewCell, BEMCheckBoxDelegate {
     var title = UILabel()
     var dateTime = UILabel()
     var doneIcon = BEMCheckBox()
+    var subtaskImage = UIImageView()
+    var subtaskFraction = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,6 +32,7 @@ class TaskCell: UITableViewCell, BEMCheckBoxDelegate {
         title.text = task.objective
         dateTime.text = task.date
         doneIcon.setOn(task.done, animated: false)
+        layoutSubviews()
     }
     
     override var frame: CGRect {
@@ -71,6 +74,27 @@ class TaskCell: UITableViewCell, BEMCheckBoxDelegate {
             .width(200)
             .leading(constant: 16)
         
+        //Subtask value
+        let subtasks = task?.subTasks ?? nil
+        if subtasks != nil && subtasks?.count != 0 {
+            
+            let image = UIImage(named: "subtaskIcon")
+            subtaskImage.image = image
+            subtaskFraction.text = progressValue()
+            subtaskFraction.font = UIFont(name: "Avenir-Light", size: 12.0)
+            
+            let stack = UIStackView(arrangedSubviews: [subtaskImage,subtaskFraction])
+            stack.distribution = .fillEqually
+            
+            stack.constrainIn(contentView)
+                .leading(to: title.trailingAnchor, constant: 20)
+                .width(40)
+                .top(30)
+        }
+        
+        
+        
+        
     }
     
     required init?(coder: NSCoder) {
@@ -104,6 +128,22 @@ class TaskCell: UITableViewCell, BEMCheckBoxDelegate {
             title.attributedText = NSMutableAttributedString(string: "")
             title.text = task?.objective
         }
+    }
+    
+    func progressValue() -> String {
+        // Returns "completed/total" for subtasks
+        guard let subtasks = task?.subTasks else { return "Error counting value"}
+        let totalSubtasks = subtasks.count
+        
+        var completedSubtasks = 0
+        
+        for subtask in subtasks {
+            if subtask.done {
+                completedSubtasks += 1
+            }
+        }
+        
+        return("\(completedSubtasks)/\(totalSubtasks)")
     }
     
 }
