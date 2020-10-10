@@ -28,6 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Set new config
         Realm.Configuration.defaultConfiguration = config
+        
+        // Print this line to find out where the config is stored for Realm Data Visualization
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         
         // Create the singleton

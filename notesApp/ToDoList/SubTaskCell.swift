@@ -52,7 +52,8 @@ class SubTaskCell: UITableViewCell, BEMCheckBoxDelegate {
         self.layer.cornerRadius = 8
         
         
-        indexView.backgroundColor = .green
+        indexView.backgroundColor = Color.navBar.lightGreen
+        indexView.textColor = .white
         indexView.textAlignment = .center
         indexView.constrainIn(contentView)
             .fillHeight()

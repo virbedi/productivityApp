@@ -56,6 +56,7 @@ class TaskEntryViewController: UIViewController,UITextFieldDelegate, UITableView
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(didTapSave))
+        navigationController?.navigationBar.prefersLargeTitles = false
         // Task Description
         objective.tintColor = .systemBlue
         objective.placeholder = "Task"

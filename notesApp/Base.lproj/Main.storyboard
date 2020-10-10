@@ -39,6 +39,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lk7-4l-OXs">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="0.27349728350000002" blue="0.27399915460000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="Ib9-2C-p6P" kind="relationship" relationship="rootViewController" id="45Y-H5-WYd"/>
@@ -63,7 +64,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="HVs-YP-LHm">
-                                <rect key="frame" x="100" y="155" width="214" height="31"/>
+                                <rect key="frame" x="77" y="155" width="247" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="HaH-4b-SfD"/>
+                                </constraints>
                                 <segments>
                                     <segment title="5 min"/>
                                     <segment title="10 min"/>
@@ -75,14 +79,12 @@
                                 </connections>
                             </segmentedControl>
                         </subviews>
-                        <color key="backgroundColor" red="0.3273870388308015" green="0.76362127590673579" blue="0.55323574185388935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.27349728350000002" blue="0.27399915460000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="HVs-YP-LHm" firstAttribute="top" secondItem="9BU-UZ-mhW" secondAttribute="top" constant="67" id="5We-V0-Jh3"/>
-                            <constraint firstItem="4HH-zG-953" firstAttribute="top" secondItem="HVs-YP-LHm" secondAttribute="bottom" constant="52" id="dhY-bD-rKg"/>
-                            <constraint firstItem="4HH-zG-953" firstAttribute="centerX" secondItem="t9J-Jj-jXA" secondAttribute="centerX" id="gKB-fe-pup"/>
-                            <constraint firstItem="4HH-zG-953" firstAttribute="top" secondItem="t9J-Jj-jXA" secondAttribute="topMargin" constant="149" id="hLI-jW-J1i"/>
-                            <constraint firstItem="HVs-YP-LHm" firstAttribute="leading" secondItem="9BU-UZ-mhW" secondAttribute="leading" constant="100" id="uUR-fb-EiH"/>
-                            <constraint firstItem="9BU-UZ-mhW" firstAttribute="trailing" secondItem="HVs-YP-LHm" secondAttribute="trailing" constant="100" id="wfg-4d-iOY"/>
+                            <constraint firstItem="4HH-zG-953" firstAttribute="top" secondItem="HVs-YP-LHm" secondAttribute="bottom" constant="52" id="E2x-Pa-keF"/>
+                            <constraint firstItem="4HH-zG-953" firstAttribute="centerX" secondItem="t9J-Jj-jXA" secondAttribute="centerX" id="Qh3-2Y-RO1"/>
+                            <constraint firstItem="HVs-YP-LHm" firstAttribute="top" secondItem="9BU-UZ-mhW" secondAttribute="top" constant="67" id="WSL-Dw-2Ij"/>
+                            <constraint firstItem="HVs-YP-LHm" firstAttribute="leading" secondItem="9BU-UZ-mhW" secondAttribute="leading" constant="77" id="gcO-WB-KTt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9BU-UZ-mhW"/>
                     </view>

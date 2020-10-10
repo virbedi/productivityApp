@@ -18,11 +18,11 @@ class TaskNavigationControleller: UINavigationController {
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
-            appearance.backgroundColor = UIColor.blue
-            appearance.titleTextAttributes = [.foregroundColor: UIColor.yellow]
+            appearance.backgroundColor = Color.navBar.lightGreen
+            navigationController?.navigationBar.tintColor = .white
             self.navigationBar.standardAppearance = appearance
             self.navigationBar.scrollEdgeAppearance = appearance
-            self.navigationBar.compactAppearance = appearance
+            
         } else {
             self.navigationBar.barTintColor = UIColor.blue
             self.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.yellow]

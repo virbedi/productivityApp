@@ -26,7 +26,8 @@ class NoteListViewController: UIViewController, UITableViewDataSource, UITableVi
         
         table.delegate = self
         table.dataSource = self
-      
+        
+        navigationController?.navigationBar.tintColor = .white
         navigationItem.title = "Notes"
         
         table.register(NoteTableViewCell.self, forCellReuseIdentifier: "customCell")
